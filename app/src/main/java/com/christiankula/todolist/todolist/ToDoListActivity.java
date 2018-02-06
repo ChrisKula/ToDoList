@@ -1,5 +1,6 @@
 package com.christiankula.todolist.todolist;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import com.christiankula.todolist.R;
 import com.christiankula.todolist.ToDoListApplication;
 import com.christiankula.todolist.models.ToDo;
+import com.christiankula.todolist.newtodo.NewToDoActivity;
 import com.christiankula.todolist.todolist.mvp.ToDoListMvp;
 import com.christiankula.todolist.utils.ViewUtils;
 
@@ -18,6 +20,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class ToDoListActivity extends AppCompatActivity implements ToDoListMvp.View {
 
@@ -81,5 +84,15 @@ public class ToDoListActivity extends AppCompatActivity implements ToDoListMvp.V
     @Override
     public void setNoToDosMessageVisibility(boolean visible) {
         ViewUtils.setViewVisibility(tvNoToDos, visible);
+    }
+
+    @Override
+    public void startNewToDoActivity() {
+        startActivity(new Intent(this, NewToDoActivity.class));
+    }
+
+    @OnClick(R.id.todolist_fab_new_todo)
+    void onNewToDoFabClick() {
+        presenter.onNewToDoFabClick();
     }
 }

@@ -36,4 +36,9 @@ public class ToDoListPresenter implements ToDoListMvp.Presenter {
     public void onViewDetached() {
         view = null;
     }
+
+    @Override
+    public void onNewToDoFabClick() {
+        this.view.startNewToDoActivity();
+    }
 }
