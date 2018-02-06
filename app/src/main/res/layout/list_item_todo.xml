@@ -4,27 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/margin_all_default"
     android:background="?android:attr/selectableItemBackground"
     android:clickable="true"
-    android:focusable="true">
-
+    android:focusable="true"
+    android:padding="@dimen/margin_all_default">
 
     <TextView
         android:id="@+id/todoitem_tv_todo_description"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:maxLines="2"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="To Do description" />
 
     <TextView
         android:id="@+id/todoitem_tv_todo_expiration_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_all_default_between_views"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
         android:textStyle="italic"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintRight_toRightOf="@id/todoitem_tv_todo_description"
         app:layout_constraintTop_toBottomOf="@id/todoitem_tv_todo_description"
         tools:text="31/12/2018 - 13h45" />
 
