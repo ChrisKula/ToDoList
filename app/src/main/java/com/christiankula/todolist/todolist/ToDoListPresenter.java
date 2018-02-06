@@ -13,12 +13,12 @@ public class ToDoListPresenter implements ToDoListMvp.Presenter {
     }
 
     @Override
-    public void attachView(ToDoListMvp.View view) {
+    public void onViewAttached(ToDoListMvp.View view) {
         this.view = view;
     }
 
     @Override
-    public void detachView() {
+    public void onViewDetached() {
         view = null;
     }
 }
