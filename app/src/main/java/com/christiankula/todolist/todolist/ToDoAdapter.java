@@ -11,8 +11,10 @@ import android.widget.TextView;
 import com.christiankula.todolist.R;
 import com.christiankula.todolist.models.ToDo;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,8 +40,9 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ToDoViewHolder
 
         holder.tvTodoDescription.setText(todo.getDescription());
 
-        //TODO Format date
-        holder.tvToDoExpirationDate.setText(todo.getExpirationDate().toString());
+        SimpleDateFormat sdf = new SimpleDateFormat(holder.tvTodoDescription.getContext().getString(R.string.date_time_format), Locale.getDefault());
+
+        holder.tvToDoExpirationDate.setText(sdf.format(todo.getExpirationDate()));
     }
 
     @Override

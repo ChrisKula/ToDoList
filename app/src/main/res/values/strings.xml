@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">To Do List</string>
+
+    <string name="date_time_format">hh:mma - d MMM yyyy</string>
 </resources>
