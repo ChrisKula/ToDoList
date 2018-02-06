@@ -23,4 +23,28 @@ public class ToDo {
     public void setExpirationDate(Date expirationDate) {
         this.expirationDate = expirationDate;
     }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        ToDo toDo = (ToDo) o;
+
+        return description.equals(toDo.description) && expirationDate.equals(toDo.expirationDate);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = description.hashCode();
+        result = 31 * result + expirationDate.hashCode();
+
+        return result;
+    }
 }

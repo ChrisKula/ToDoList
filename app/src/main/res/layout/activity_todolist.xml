@@ -19,7 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="No todos"
+        android:text="No To Dos"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
 
     <android.support.design.widget.FloatingActionButton

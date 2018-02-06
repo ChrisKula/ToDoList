@@ -1,6 +1,7 @@
 package com.christiankula.todolist.todolist;
 
 
+import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import com.christiankula.todolist.R;
 import com.christiankula.todolist.models.ToDo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -19,8 +21,8 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ToDoViewHolder
 
     private List<ToDo> data;
 
-    public ToDoAdapter(List<ToDo> data) {
-        this.data = data;
+    public ToDoAdapter() {
+        this.data = new ArrayList<>();
     }
 
     @Override
@@ -45,6 +47,16 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ToDoViewHolder
         return data.size();
     }
 
+    void updateToDos(List<ToDo> toDos) {
+        ToDosDiffCallback diffCallback = new ToDosDiffCallback(data, toDos);
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallback);
+
+        this.data.clear();
+        this.data.addAll(toDos);
+
+        diffResult.dispatchUpdatesTo(this);
+    }
+
     class ToDoViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.todoitem_tv_todo_description)
@@ -56,8 +68,38 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ToDoViewHolder
         ToDoViewHolder(View itemView) {
             super(itemView);
 
-            ButterKnife.bind(itemView);
+            ButterKnife.bind(this, itemView);
         }
     }
 
+    class ToDosDiffCallback extends DiffUtil.Callback {
+        private List<ToDo> oldToDos;
+
+        private List<ToDo> newToDos;
+
+        ToDosDiffCallback(List<ToDo> oldToDos, List<ToDo> newToDos) {
+            this.oldToDos = oldToDos;
+            this.newToDos = newToDos;
+        }
+
+        @Override
+        public int getOldListSize() {
+            return oldToDos.size();
+        }
+
+        @Override
+        public int getNewListSize() {
+            return newToDos.size();
+        }
+
+        @Override
+        public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
+            return oldToDos.get(oldItemPosition).equals(newToDos.get(newItemPosition));
+        }
+
+        @Override
+        public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
+            return areItemsTheSame(oldItemPosition, newItemPosition);
+        }
+    }
 }
