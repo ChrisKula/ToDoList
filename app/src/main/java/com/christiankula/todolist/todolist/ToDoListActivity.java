@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.christiankula.todolist.R;
 import com.christiankula.todolist.ToDoListApplication;
 import com.christiankula.todolist.models.ToDo;
-import com.christiankula.todolist.newtodo.NewToDoActivity;
+import com.christiankula.todolist.edittodo.EditToDoActivity;
 import com.christiankula.todolist.todolist.mvp.ToDoListMvp;
 import com.christiankula.todolist.utils.ViewUtils;
 
@@ -87,8 +87,8 @@ public class ToDoListActivity extends AppCompatActivity implements ToDoListMvp.V
     }
 
     @Override
-    public void startNewToDoActivity() {
-        startActivity(new Intent(this, NewToDoActivity.class));
+    public void startEditToDoActivity() {
+        startActivity(new Intent(this, EditToDoActivity.class));
     }
 
     @OnClick(R.id.todolist_fab_new_todo)

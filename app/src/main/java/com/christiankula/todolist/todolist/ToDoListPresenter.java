@@ -39,6 +39,6 @@ public class ToDoListPresenter implements ToDoListMvp.Presenter {
 
     @Override
     public void onNewToDoFabClick() {
-        this.view.startNewToDoActivity();
+        this.view.startEditToDoActivity();
     }
 }

@@ -7,7 +7,7 @@
     android:divider="@drawable/all_linear_layout_divider_shape"
     android:orientation="vertical"
     android:showDividers="middle"
-    tools:context="com.christiankula.todolist.newtodo.NewToDoActivity">
+    tools:context="com.christiankula.todolist.edittodo.EditToDoActivity">
 
 
     <EditText

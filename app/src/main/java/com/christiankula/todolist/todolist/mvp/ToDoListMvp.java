@@ -20,7 +20,7 @@ public interface ToDoListMvp {
 
         void setNoToDosMessageVisibility(boolean visible);
 
-        void startNewToDoActivity();
+        void startEditToDoActivity();
     }
 
     interface Presenter extends BasePresenter<View> {

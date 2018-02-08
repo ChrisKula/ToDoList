@@ -1,4 +1,4 @@
-package com.christiankula.todolist.newtodo;
+package com.christiankula.todolist.edittodo;
 
 import com.christiankula.todolist.models.ToDo;
 import com.christiankula.todolist.mvp.BasePresenter;
@@ -7,7 +7,7 @@ import com.christiankula.todolist.mvp.BaseView;
 import java.util.Calendar;
 import java.util.Date;
 
-public interface NewToDoMvp {
+public interface EditToDoMvp {
 
     interface Model {
         /**

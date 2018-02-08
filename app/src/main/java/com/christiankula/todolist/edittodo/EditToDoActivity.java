@@ -1,4 +1,4 @@
-package com.christiankula.todolist.newtodo;
+package com.christiankula.todolist.edittodo;
 
 import static com.christiankula.todolist.injection.modules.NewToDoModule.SIMPLE_DATE_FORMAT;
 import static com.christiankula.todolist.injection.modules.NewToDoModule.TIME_DATE_FORMAT;
@@ -31,7 +31,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class NewToDoActivity extends AppCompatActivity implements NewToDoMvp.View, TextWatcher {
+public class EditToDoActivity extends AppCompatActivity implements EditToDoMvp.View, TextWatcher {
 
     @BindView(R.id.newtodo_et_description)
     EditText etDescription;
@@ -50,12 +50,12 @@ public class NewToDoActivity extends AppCompatActivity implements NewToDoMvp.Vie
     @Inject
     SimpleDateFormat timeFormat;
 
-    private NewToDoMvp.Presenter presenter;
+    private EditToDoMvp.Presenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_to_do);
+        setContentView(R.layout.activity_edit_to_do);
 
         ((ToDoListApplication) getApplication()).getComponent().inject(this);
 
@@ -100,7 +100,7 @@ public class NewToDoActivity extends AppCompatActivity implements NewToDoMvp.Vie
 
     @Inject
     @Override
-    public void setPresenter(NewToDoMvp.Presenter presenter) {
+    public void setPresenter(EditToDoMvp.Presenter presenter) {
         this.presenter = presenter;
     }
 

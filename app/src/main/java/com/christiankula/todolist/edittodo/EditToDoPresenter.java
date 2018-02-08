@@ -1,21 +1,21 @@
-package com.christiankula.todolist.newtodo;
+package com.christiankula.todolist.edittodo;
 
 
 import com.christiankula.todolist.models.ToDo;
 
 import java.util.Calendar;
 
-public class NewToDoPresenter implements NewToDoMvp.Presenter {
+public class EditToDoPresenter implements EditToDoMvp.Presenter {
 
-    private NewToDoMvp.View view;
-    private NewToDoMvp.Model model;
+    private EditToDoMvp.View view;
+    private EditToDoMvp.Model model;
 
-    public NewToDoPresenter(NewToDoMvp.Model model) {
+    public EditToDoPresenter(EditToDoMvp.Model model) {
         this.model = model;
     }
 
     @Override
-    public void onViewAttached(NewToDoMvp.View view) {
+    public void onViewAttached(EditToDoMvp.View view) {
         this.view = view;
 
         setupDateTimeViews();

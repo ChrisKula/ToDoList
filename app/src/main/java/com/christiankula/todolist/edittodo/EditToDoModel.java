@@ -1,18 +1,18 @@
-package com.christiankula.todolist.newtodo;
+package com.christiankula.todolist.edittodo;
 
 import com.christiankula.todolist.models.ToDo;
 import com.christiankula.todolist.persistence.ToDoDao;
 
 import java.util.Calendar;
 
-public class NewToDoModel implements NewToDoMvp.Model {
+public class EditToDoModel implements EditToDoMvp.Model {
 
     private String toDoDescription;
     private Calendar toDoDateTime;
 
     private ToDoDao toDoDao;
 
-    public NewToDoModel(ToDoDao toDoDao) {
+    public EditToDoModel(ToDoDao toDoDao) {
         this.toDoDao = toDoDao;
 
         this.toDoDescription = "";

@@ -4,9 +4,9 @@ package com.christiankula.todolist.injection.modules;
 import static com.christiankula.todolist.injection.modules.DateTimePatternModule.DATE_PATTERN_NAME;
 import static com.christiankula.todolist.injection.modules.DateTimePatternModule.TIME_PATTERN_NAME;
 
-import com.christiankula.todolist.newtodo.NewToDoModel;
-import com.christiankula.todolist.newtodo.NewToDoMvp;
-import com.christiankula.todolist.newtodo.NewToDoPresenter;
+import com.christiankula.todolist.edittodo.EditToDoModel;
+import com.christiankula.todolist.edittodo.EditToDoMvp;
+import com.christiankula.todolist.edittodo.EditToDoPresenter;
 import com.christiankula.todolist.persistence.ToDoDao;
 
 import java.text.SimpleDateFormat;
@@ -25,13 +25,13 @@ public class NewToDoModule {
     public static final String SIMPLE_DATE_FORMAT = "SIMPLE_DATE_FORMAT";
 
     @Provides
-    NewToDoMvp.Model provideModel(ToDoDao toDoDao) {
-        return new NewToDoModel(toDoDao);
+    EditToDoMvp.Model provideModel(ToDoDao toDoDao) {
+        return new EditToDoModel(toDoDao);
     }
 
     @Provides
-    NewToDoMvp.Presenter providePresenter(NewToDoMvp.Model model) {
-        return new NewToDoPresenter(model);
+    EditToDoMvp.Presenter providePresenter(EditToDoMvp.Model model) {
+        return new EditToDoPresenter(model);
     }
 
 
