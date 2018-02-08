@@ -1,5 +1,6 @@
 package com.christiankula.todolist.injection.modules;
 
+import com.christiankula.todolist.persistence.ToDoDao;
 import com.christiankula.todolist.todolist.ToDoAdapter;
 import com.christiankula.todolist.todolist.ToDoListModel;
 import com.christiankula.todolist.todolist.ToDoListPresenter;
@@ -12,8 +13,8 @@ import dagger.Provides;
 public class ToDoListModule {
 
     @Provides
-    ToDoListMvp.Model provideModel() {
-        return new ToDoListModel();
+    ToDoListMvp.Model provideModel(ToDoDao toDoDao) {
+        return new ToDoListModel(toDoDao);
     }
 
     @Provides

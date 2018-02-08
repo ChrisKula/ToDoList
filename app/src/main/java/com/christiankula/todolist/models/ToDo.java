@@ -4,9 +4,19 @@ import java.util.Date;
 
 public class ToDo {
 
+    private int id;
+
     private String description;
 
     private Date expirationDate;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getDescription() {
         return description;
@@ -24,7 +34,6 @@ public class ToDo {
         this.expirationDate = expirationDate;
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -37,14 +46,14 @@ public class ToDo {
 
         ToDo toDo = (ToDo) o;
 
-        return description.equals(toDo.description) && expirationDate.equals(toDo.expirationDate);
+        return id == toDo.id && (description != null ? description.equals(toDo.description) : toDo.description == null) && (expirationDate != null ? expirationDate.equals(toDo.expirationDate) : toDo.expirationDate == null);
     }
 
     @Override
     public int hashCode() {
-        int result = description.hashCode();
-        result = 31 * result + expirationDate.hashCode();
-
+        int result = id;
+        result = 31 * result + (description != null ? description.hashCode() : 0);
+        result = 31 * result + (expirationDate != null ? expirationDate.hashCode() : 0);
         return result;
     }
 }

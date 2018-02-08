@@ -7,6 +7,7 @@ import static com.christiankula.todolist.injection.modules.DateTimePatternModule
 import com.christiankula.todolist.newtodo.NewToDoModel;
 import com.christiankula.todolist.newtodo.NewToDoMvp;
 import com.christiankula.todolist.newtodo.NewToDoPresenter;
+import com.christiankula.todolist.persistence.ToDoDao;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;
@@ -24,8 +25,8 @@ public class NewToDoModule {
     public static final String SIMPLE_DATE_FORMAT = "SIMPLE_DATE_FORMAT";
 
     @Provides
-    NewToDoMvp.Model provideModel() {
-        return new NewToDoModel();
+    NewToDoMvp.Model provideModel(ToDoDao toDoDao) {
+        return new NewToDoModel(toDoDao);
     }
 
     @Provides
