@@ -9,6 +9,7 @@
     android:showDividers="middle"
     tools:context="com.christiankula.todolist.newtodo.NewToDoActivity">
 
+
     <EditText
         android:id="@+id/newtodo_et_description"
         android:layout_width="match_parent"
@@ -19,31 +20,43 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_all_default">
 
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="25dp"
+            android:layout_height="28dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/all_icon_clock_grey_24dp"
+            tools:layout_editor_absoluteX="-1dp"
+            tools:layout_editor_absoluteY="-4dp" />
+
         <TextView
             android:id="@+id/newtodo_tv_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView"
+            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintTop_toTopOf="@+id/imageView"
             tools:text="mar. 6 février 2018" />
 
         <TextView
             android:id="@+id/newtodo_tv_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="1"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintBottom_toBottomOf="@id/newtodo_tv_date"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/newtodo_tv_date"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="@id/newtodo_tv_date"
             tools:text="18:00" />
 
     </android.support.constraint.ConstraintLayout>
