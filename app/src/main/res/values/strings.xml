@@ -2,4 +2,8 @@
     <string name="app_name">To Do List</string>
 
     <string name="date_time_format">hh:mma - d MMM yyyy</string>
+
+    <string name="date_format">E d MMM yyyy</string>
+
+    <string name="time_format">hh:mma</string>
 </resources>
