@@ -21,9 +21,13 @@ public interface ToDoListMvp {
         void setNoToDosMessageVisibility(boolean visible);
 
         void startEditToDoActivity();
+
+        void startEditToDoActivity(ToDo toDo);
     }
 
     interface Presenter extends BasePresenter<View> {
         void onNewToDoFabClick();
+
+        void onToDoItemClick(ToDo toDo);
     }
 }
