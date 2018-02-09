@@ -28,6 +28,9 @@ final BUTTERKNIFE_VERSION = "8.8.1"
 
 final PARCELER_VERSION = '1.1.9'
 
+final RX_JAVA_VERSION = '2.1.9'
+final RX_ANDROID_VERSION = '2.0.1'
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
@@ -43,6 +46,10 @@ dependencies {
 
     implementation "org.parceler:parceler-api:${PARCELER_VERSION}"
     annotationProcessor "org.parceler:parceler:${PARCELER_VERSION}"
+
+    implementation "io.reactivex.rxjava2:rxjava:${RX_JAVA_VERSION}"
+
+    implementation "io.reactivex.rxjava2:rxandroid:${RX_ANDROID_VERSION}"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
