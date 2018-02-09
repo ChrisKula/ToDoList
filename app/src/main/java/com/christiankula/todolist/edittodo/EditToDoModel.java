@@ -3,44 +3,50 @@ package com.christiankula.todolist.edittodo;
 import com.christiankula.todolist.models.ToDo;
 import com.christiankula.todolist.persistence.ToDoDao;
 
-import java.util.Calendar;
+import java.util.Date;
 
 public class EditToDoModel implements EditToDoMvp.Model {
 
-    private String toDoDescription;
-    private Calendar toDoDateTime;
+    private ToDo editedTodo;
 
     private ToDoDao toDoDao;
 
     public EditToDoModel(ToDoDao toDoDao) {
         this.toDoDao = toDoDao;
-
-        this.toDoDescription = "";
-        this.toDoDateTime = Calendar.getInstance();
     }
 
     @Override
-    public void setToDoDateTime(Calendar toDoDateTime) {
-        this.toDoDateTime = toDoDateTime;
+    public void initEditedToDo() {
+        this.editedTodo = new ToDo();
     }
 
     @Override
-    public Calendar getToDoDateTime() {
-        return (Calendar) toDoDateTime.clone();
-    }
-
-    @Override
-    public void setToDoDescription(String description) {
-        this.toDoDescription = description;
+    public void setEditedTodo(ToDo toDo) {
+        this.editedTodo = toDo;
     }
 
     @Override
     public String getToDoDescription() {
-        return toDoDescription;
+        return this.editedTodo.getDescription();
     }
 
     @Override
-    public void saveToDo(ToDo toDo) {
-        toDoDao.saveOrUpdate(toDo);
+    public void setToDoDescription(String description) {
+        this.editedTodo.setDescription(description);
+    }
+
+    @Override
+    public Date getToDoDate() {
+        return editedTodo.getExpirationDate();
+    }
+
+    @Override
+    public void setToDoDate(Date expirationDate) {
+        this.editedTodo.setExpirationDate(expirationDate);
+    }
+
+    @Override
+    public void saveToDo() {
+        toDoDao.saveOrUpdate(editedTodo);
     }
 }

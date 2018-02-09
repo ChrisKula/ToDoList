@@ -4,27 +4,29 @@ import com.christiankula.todolist.models.ToDo;
 import com.christiankula.todolist.mvp.BasePresenter;
 import com.christiankula.todolist.mvp.BaseView;
 
-import java.util.Calendar;
 import java.util.Date;
 
 public interface EditToDoMvp {
 
     interface Model {
-        /**
-         * Returns a copy of the date & time set
-         */
-        Calendar getToDoDateTime();
+        void initEditedToDo();
 
-        void setToDoDateTime(Calendar now);
+        void setEditedTodo(ToDo toDo);
 
         String getToDoDescription();
 
         void setToDoDescription(String description);
 
-        void saveToDo(ToDo toDo);
+        Date getToDoDate();
+
+        void setToDoDate(Date expirationDate);
+
+        void saveToDo();
     }
 
     interface View extends BaseView<Presenter> {
+        void setToDoDescription(String description);
+
         void setExpirationDate(Date date);
 
         void setExpirationTime(Date time);
@@ -36,6 +38,14 @@ public interface EditToDoMvp {
         void close();
 
         void showDescriptionEmptyErrorToast();
+
+        void showToDoSetInPastErrorToast();
+
+        void setTitleToEditToDo();
+
+        void setTitleToNewToDo();
+
+        ToDo getToDoFromIntent();
     }
 
     interface Presenter extends BasePresenter<View> {
