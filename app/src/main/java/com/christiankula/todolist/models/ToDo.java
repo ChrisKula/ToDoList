@@ -1,7 +1,10 @@
 package com.christiankula.todolist.models;
 
+import org.parceler.Parcel;
+
 import java.util.Date;
 
+@Parcel
 public class ToDo {
 
     private int id;
