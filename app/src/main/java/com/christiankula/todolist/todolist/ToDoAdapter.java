@@ -22,6 +22,7 @@ import butterknife.ButterKnife;
 public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ToDoViewHolder> {
 
     private List<ToDo> data;
+    private OnItemClickListener onItemClickListener;
 
     public ToDoAdapter() {
         this.data = new ArrayList<>();
@@ -36,13 +37,22 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ToDoViewHolder
 
     @Override
     public void onBindViewHolder(ToDoViewHolder holder, int position) {
-        ToDo todo = data.get(position);
+        final ToDo todo = data.get(position);
 
         holder.tvTodoDescription.setText(todo.getDescription());
 
         SimpleDateFormat sdf = new SimpleDateFormat(holder.tvTodoDescription.getContext().getString(R.string.date_time_format), Locale.getDefault());
 
         holder.tvToDoExpirationDate.setText(sdf.format(todo.getExpirationDate()));
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onItemClickListener != null) {
+                    onItemClickListener.onItemClick(todo);
+                }
+            }
+        });
     }
 
     @Override
@@ -58,6 +68,14 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ToDoViewHolder
         this.data.addAll(toDos);
 
         diffResult.dispatchUpdatesTo(this);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(ToDo toDo);
     }
 
     class ToDoViewHolder extends RecyclerView.ViewHolder {

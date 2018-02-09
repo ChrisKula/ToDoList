@@ -1,5 +1,7 @@
 package com.christiankula.todolist.todolist;
 
+import static com.christiankula.todolist.edittodo.EditToDoActivity.TODO_EXTRA_KEY;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -9,10 +11,12 @@ import android.widget.TextView;
 
 import com.christiankula.todolist.R;
 import com.christiankula.todolist.ToDoListApplication;
+import com.christiankula.todolist.edittodo.EditToDoActivity;
 import com.christiankula.todolist.models.ToDo;
-import com.christiankula.todolist.newtodo.NewToDoActivity;
 import com.christiankula.todolist.todolist.mvp.ToDoListMvp;
 import com.christiankula.todolist.utils.ViewUtils;
+
+import org.parceler.Parcels;
 
 import java.util.List;
 
@@ -22,7 +26,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ToDoListActivity extends AppCompatActivity implements ToDoListMvp.View {
+public class ToDoListActivity extends AppCompatActivity implements ToDoListMvp.View, ToDoAdapter.OnItemClickListener {
 
     @BindView(R.id.todolist_tv_no_todos)
     TextView tvNoToDos;
@@ -69,6 +73,8 @@ public class ToDoListActivity extends AppCompatActivity implements ToDoListMvp.V
     private void initToDosRecyclerView() {
         rvToDos.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         rvToDos.setAdapter(toDoAdapter);
+
+        toDoAdapter.setOnItemClickListener(this);
     }
 
     @Override
@@ -87,12 +93,28 @@ public class ToDoListActivity extends AppCompatActivity implements ToDoListMvp.V
     }
 
     @Override
-    public void startNewToDoActivity() {
-        startActivity(new Intent(this, NewToDoActivity.class));
+    public void startEditToDoActivity() {
+        startEditToDoActivity(null);
+    }
+
+    @Override
+    public void startEditToDoActivity(ToDo toDo) {
+        Intent intent = new Intent(this, EditToDoActivity.class);
+
+        if (toDo != null) {
+            intent.putExtra(TODO_EXTRA_KEY, Parcels.wrap(toDo));
+        }
+
+        startActivity(intent);
     }
 
     @OnClick(R.id.todolist_fab_new_todo)
     void onNewToDoFabClick() {
         presenter.onNewToDoFabClick();
+    }
+
+    @Override
+    public void onItemClick(ToDo toDo) {
+        presenter.onToDoItemClick(toDo);
     }
 }

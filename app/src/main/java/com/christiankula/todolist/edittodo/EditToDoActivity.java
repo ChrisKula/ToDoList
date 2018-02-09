@@ -1,4 +1,4 @@
-package com.christiankula.todolist.newtodo;
+package com.christiankula.todolist.edittodo;
 
 import static com.christiankula.todolist.injection.modules.NewToDoModule.SIMPLE_DATE_FORMAT;
 import static com.christiankula.todolist.injection.modules.NewToDoModule.TIME_DATE_FORMAT;
@@ -6,6 +6,7 @@ import static com.christiankula.todolist.injection.modules.NewToDoModule.TIME_DA
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -20,6 +21,9 @@ import android.widget.Toast;
 
 import com.christiankula.todolist.R;
 import com.christiankula.todolist.ToDoListApplication;
+import com.christiankula.todolist.models.ToDo;
+
+import org.parceler.Parcels;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -31,7 +35,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class NewToDoActivity extends AppCompatActivity implements NewToDoMvp.View, TextWatcher {
+public class EditToDoActivity extends AppCompatActivity implements EditToDoMvp.View, TextWatcher {
+
+    public static final String TODO_EXTRA_KEY = "TODO_EXTRA";
 
     @BindView(R.id.newtodo_et_description)
     EditText etDescription;
@@ -50,12 +56,12 @@ public class NewToDoActivity extends AppCompatActivity implements NewToDoMvp.Vie
     @Inject
     SimpleDateFormat timeFormat;
 
-    private NewToDoMvp.Presenter presenter;
+    private EditToDoMvp.Presenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_to_do);
+        setContentView(R.layout.activity_edit_to_do);
 
         ((ToDoListApplication) getApplication()).getComponent().inject(this);
 
@@ -100,13 +106,36 @@ public class NewToDoActivity extends AppCompatActivity implements NewToDoMvp.Vie
 
     @Inject
     @Override
-    public void setPresenter(NewToDoMvp.Presenter presenter) {
+    public void setPresenter(EditToDoMvp.Presenter presenter) {
         this.presenter = presenter;
     }
 
     @Override
     public void close() {
         finish();
+    }
+
+    @Override
+    public void setTitleToEditToDo() {
+        ActionBar ab = getSupportActionBar();
+
+        if (ab != null) {
+            ab.setTitle("Edit To Do");
+        }
+    }
+
+    @Override
+    public void setTitleToNewToDo() {
+        ActionBar ab = getSupportActionBar();
+
+        if (ab != null) {
+            ab.setTitle("New To Do");
+        }
+    }
+
+    @Override
+    public void setToDoDescription(String description) {
+        etDescription.setText(description);
     }
 
     @Override
@@ -141,7 +170,17 @@ public class NewToDoActivity extends AppCompatActivity implements NewToDoMvp.Vie
 
     @Override
     public void showDescriptionEmptyErrorToast() {
-        Toast.makeText(this, "Description empty", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Description empty", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void showToDoSetInPastErrorToast() {
+        Toast.makeText(this, "To Do can't be scheduled in the past", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public ToDo getToDoFromIntent() {
+        return Parcels.unwrap(getIntent().getParcelableExtra(TODO_EXTRA_KEY));
     }
 
     @OnClick(R.id.newtodo_tv_date)

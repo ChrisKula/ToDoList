@@ -26,6 +26,8 @@ final DAGGER_VERSION = "2.14.1"
 
 final BUTTERKNIFE_VERSION = "8.8.1"
 
+final PARCELER_VERSION = '1.1.9'
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
@@ -38,6 +40,9 @@ dependencies {
 
     implementation "com.jakewharton:butterknife:${BUTTERKNIFE_VERSION}"
     annotationProcessor "com.jakewharton:butterknife-compiler:${BUTTERKNIFE_VERSION}"
+
+    implementation "org.parceler:parceler-api:${PARCELER_VERSION}"
+    annotationProcessor "org.parceler:parceler:${PARCELER_VERSION}"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
