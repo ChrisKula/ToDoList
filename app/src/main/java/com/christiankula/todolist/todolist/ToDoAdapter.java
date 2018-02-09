@@ -70,8 +70,12 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ToDoViewHolder
         diffResult.dispatchUpdatesTo(this);
     }
 
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+    void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
+    }
+
+    ToDo getItem(int position) {
+        return this.data.get(position);
     }
 
     public interface OnItemClickListener {

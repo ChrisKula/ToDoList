@@ -11,6 +11,8 @@ public interface ToDoListMvp {
 
     interface Model {
         List<ToDo> getToDos();
+
+        void removeToDo(ToDo toDo);
     }
 
     interface View extends BaseView<Presenter> {
@@ -29,5 +31,7 @@ public interface ToDoListMvp {
         void onNewToDoFabClick();
 
         void onToDoItemClick(ToDo toDo);
+
+        void onToDoRemoved(ToDo toDo);
     }
 }

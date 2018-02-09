@@ -18,4 +18,9 @@ public class ToDoListModel implements ToDoListMvp.Model {
     public List<ToDo> getToDos() {
         return toDoDao.getAllToDos();
     }
+
+    @Override
+    public void removeToDo(ToDo toDo) {
+        toDoDao.removeToDo(toDo.getId());
+    }
 }

@@ -46,4 +46,9 @@ public class ToDoListPresenter implements ToDoListMvp.Presenter {
     public void onToDoItemClick(ToDo toDo) {
         this.view.startEditToDoActivity(toDo);
     }
+
+    @Override
+    public void onToDoRemoved(ToDo toDo) {
+        this.model.removeToDo(toDo);
+    }
 }
