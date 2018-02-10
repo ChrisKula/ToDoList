@@ -7,11 +7,13 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.widget.TextView;
 
 import com.christiankula.todolist.R;
 import com.christiankula.todolist.ToDoListApplication;
 import com.christiankula.todolist.edittodo.EditToDoActivity;
+import com.christiankula.todolist.itemtouchhelper.DismissCallback;
 import com.christiankula.todolist.models.ToDo;
 import com.christiankula.todolist.todolist.mvp.ToDoListMvp;
 import com.christiankula.todolist.utils.ViewUtils;
@@ -26,7 +28,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ToDoListActivity extends AppCompatActivity implements ToDoListMvp.View, ToDoAdapter.OnItemClickListener {
+public class ToDoListActivity extends AppCompatActivity implements ToDoListMvp.View, ToDoAdapter.OnItemClickListener, DismissCallback.OnItemDismissListener {
 
     @BindView(R.id.todolist_tv_no_todos)
     TextView tvNoToDos;
@@ -75,6 +77,11 @@ public class ToDoListActivity extends AppCompatActivity implements ToDoListMvp.V
         rvToDos.setAdapter(toDoAdapter);
 
         toDoAdapter.setOnItemClickListener(this);
+
+        ItemTouchHelper.Callback callback = new DismissCallback(this);
+
+        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+        touchHelper.attachToRecyclerView(rvToDos);
     }
 
     @Override
@@ -116,5 +123,10 @@ public class ToDoListActivity extends AppCompatActivity implements ToDoListMvp.V
     @Override
     public void onItemClick(ToDo toDo) {
         presenter.onToDoItemClick(toDo);
+    }
+
+    @Override
+    public void onItemDismiss(int position) {
+        presenter.onToDoRemoved(toDoAdapter.getItem(position));
     }
 }
