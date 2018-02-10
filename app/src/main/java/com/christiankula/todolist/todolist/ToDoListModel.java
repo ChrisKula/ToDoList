@@ -6,6 +6,8 @@ import com.christiankula.todolist.todolist.mvp.ToDoListMvp;
 
 import java.util.List;
 
+import io.reactivex.Observable;
+
 public class ToDoListModel implements ToDoListMvp.Model {
 
     private ToDoDao toDoDao;
@@ -15,12 +17,12 @@ public class ToDoListModel implements ToDoListMvp.Model {
     }
 
     @Override
-    public List<ToDo> getToDos() {
-        return toDoDao.getAllToDos();
+    public void removeToDo(ToDo toDo) {
+        toDoDao.removeToDo(toDo.getId());
     }
 
     @Override
-    public void removeToDo(ToDo toDo) {
-        toDoDao.removeToDo(toDo.getId());
+    public Observable<List<ToDo>> observeToDos() {
+        return toDoDao.observeToDos();
     }
 }

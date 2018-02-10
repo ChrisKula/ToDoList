@@ -5,11 +5,18 @@ import com.christiankula.todolist.todolist.mvp.ToDoListMvp;
 
 import java.util.List;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
+
 
 public class ToDoListPresenter implements ToDoListMvp.Presenter {
 
     private ToDoListMvp.View view;
     private ToDoListMvp.Model model;
+
+    private Disposable toDosDisposable;
 
     public ToDoListPresenter(ToDoListMvp.Model model) {
         this.model = model;
@@ -19,21 +26,31 @@ public class ToDoListPresenter implements ToDoListMvp.Presenter {
     public void onViewAttached(ToDoListMvp.View view) {
         this.view = view;
 
-        List<ToDo> toDos = model.getToDos();
+        toDosDisposable = this.model.observeToDos()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<List<ToDo>>() {
+                    @Override
+                    public void accept(List<ToDo> toDos) throws Exception {
+                        if (toDos.isEmpty()) {
+                            ToDoListPresenter.this.view.setNoToDosMessageVisibility(true);
+                            ToDoListPresenter.this.view.setToDosListVisibility(false);
+                        } else {
+                            ToDoListPresenter.this.view.displayToDos(toDos);
 
-        if (toDos.isEmpty()) {
-            this.view.setNoToDosMessageVisibility(true);
-            this.view.setToDosListVisibility(false);
-        } else {
-            this.view.displayToDos(model.getToDos());
-
-            this.view.setNoToDosMessageVisibility(false);
-            this.view.setToDosListVisibility(true);
-        }
+                            ToDoListPresenter.this.view.setNoToDosMessageVisibility(false);
+                            ToDoListPresenter.this.view.setToDosListVisibility(true);
+                        }
+                    }
+                });
     }
 
     @Override
     public void onViewDetached() {
+        if (toDosDisposable != null && !toDosDisposable.isDisposed()) {
+            toDosDisposable.dispose();
+        }
+
         view = null;
     }
 

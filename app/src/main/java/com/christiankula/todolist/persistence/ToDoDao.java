@@ -9,14 +9,21 @@ import com.christiankula.todolist.utils.ListUtils;
 
 import java.util.List;
 
+import io.reactivex.Observable;
+import io.reactivex.subjects.BehaviorSubject;
+
 public class ToDoDao {
 
     private int toDoCounter = 1;
 
     private SparseArray<ToDo> toDos;
 
+    private BehaviorSubject<List<ToDo>> toDosSubject;
+
     public ToDoDao() {
         toDos = new SparseArray<>();
+
+        toDosSubject = BehaviorSubject.create();
     }
 
     public void saveOrUpdate(ToDo toDo) {
@@ -26,6 +33,8 @@ public class ToDoDao {
         }
 
         toDos.put(toDo.getId(), toDo);
+
+        toDosSubject.onNext(asList());
     }
 
     @Nullable
@@ -35,9 +44,15 @@ public class ToDoDao {
 
     public void removeToDo(int id) {
         toDos.delete(id);
+
+        toDosSubject.onNext(asList());
     }
 
-    public List<ToDo> getAllToDos() {
+    public Observable<List<ToDo>> observeToDos() {
+        return toDosSubject;
+    }
+
+    private List<ToDo> asList() {
         return ListUtils.asList(toDos);
     }
 }

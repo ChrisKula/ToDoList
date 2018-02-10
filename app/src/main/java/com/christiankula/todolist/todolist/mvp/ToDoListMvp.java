@@ -7,12 +7,14 @@ import com.christiankula.todolist.mvp.BaseView;
 
 import java.util.List;
 
+import io.reactivex.Observable;
+
 public interface ToDoListMvp {
 
     interface Model {
-        List<ToDo> getToDos();
-
         void removeToDo(ToDo toDo);
+
+        Observable<List<ToDo>> observeToDos();
     }
 
     interface View extends BaseView<Presenter> {
